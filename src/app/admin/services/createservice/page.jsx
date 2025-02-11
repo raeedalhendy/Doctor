@@ -5,22 +5,16 @@ import { useState } from "react";
 
 const CreateService = () => {
     const router = useRouter();
-    const [service_name, setService_name] = useState("");
     const [service_name_ar, setService_name_ar] = useState("");
-    const [description, setDescription] = useState("");
     const [description_ar, setDescription_ar] = useState("");
-    const [price, setPrice] = useState("");
     const [imag, setImag] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const formData = new FormData();
-    formData.append("service_name", service_name);
     formData.append("service_name_ar", service_name_ar);
-    formData.append("description", description);
     formData.append("description_ar", description_ar);
-    formData.append("price", price);
     formData.append("imag", imag);
     axios.post('https://7stars-events.com/api/service', formData , {
         headers: {
@@ -32,7 +26,7 @@ const CreateService = () => {
     })
     .then((result) => {
         console.log(result)
-        Router.push("/admin/services"); // العودة إلى صفحة الخدمات
+        router.push("/admin/services"); // العودة إلى صفحة الخدمات
 
     })
     .catch((err) => {
@@ -43,7 +37,7 @@ const CreateService = () => {
   };
 
   return (
-    <div className="max-w-xl  mx-auto mt-3 p-3 bg-gradient-to-br from-blue-100 to-blue-500 rounded-lg shadow-md">
+    <div className="max-w-xl  mx-auto mt-3 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
         Create New Service
       </h2>
@@ -60,19 +54,9 @@ const CreateService = () => {
             className="mt-2 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-customBlack text-black hover:file:bg-blue-100"
             />
         </div>
+        
         <div>
-          <label className="block font-medium mb-1">Service Name (English)</label>
-          <input
-            type="text"
-            value={service_name}
-            onChange={(e) => setService_name(e.target.value)}
-            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter service name"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Service Name (Arabic)</label>
+          <label className="block font-medium mb-1">Service Name </label>
           <input
             type="text"
             value={service_name_ar}
@@ -82,18 +66,9 @@ const CreateService = () => {
             required
           />
         </div>
+        
         <div>
-          <label className="block font-medium mb-1">Description (English)</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter service description"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-1">Description (Arabic)</label>
+          <label className="block font-medium mb-1">Description </label>
           <textarea
             value={description_ar}
             onChange={(e) => setDescription_ar(e.target.value)}
@@ -102,17 +77,7 @@ const CreateService = () => {
             required
           />
         </div>
-        <div>
-          <label className="block font-medium mb-1">Price</label>
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter service price"
-            required
-          />
-        </div>
+        
         
         <button
           type="submit"

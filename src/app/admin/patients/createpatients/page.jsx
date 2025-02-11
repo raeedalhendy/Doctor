@@ -6,11 +6,9 @@ import {  useRouter } from "next/navigation";
 const CreatePatients = () => {
         const router = useRouter();
     
-  const [name, setName] = useState("");
   const [nameAr, setNameAr] = useState("");
   const [phone, setPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [medicalHistory, setMedicalHistory] = useState("");
   const [address, setAddress] = useState("");
 
   const handleSubmit = (e) => {
@@ -18,11 +16,9 @@ const CreatePatients = () => {
 
     const token = localStorage.getItem("token");
     const formData = new FormData();
-    formData.append("name", name);
     formData.append("namear", nameAr);
     formData.append("phone", phone);
     formData.append("datae_of_birth", dateOfBirth);
-    formData.append("medical_history", medicalHistory);
     formData.append("adress", address);
 
     axios.post("https://7stars-events.com/api/patients", formData , {
@@ -35,11 +31,9 @@ const CreatePatients = () => {
       
       .then((result) => {
         alert("Patient created successfully!");
-        setName("");
         setNameAr("");
         setPhone("");
         setDateOfBirth("");
-        setMedicalHistory("");
         setAddress("");
         router.push("/admin/patients");
       })
@@ -57,17 +51,7 @@ const CreatePatients = () => {
         <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
           Create Patient
         </h2>
-        <div className="mb-4">
-          <label className="block text-black font-medium mb-2">Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg text-black shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
-            placeholder="Enter patient's name"
-            required
-          />
-        </div>
+
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">Name (Arabic)</label>
           <input
@@ -102,18 +86,7 @@ const CreatePatients = () => {
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">
-            Medical History
-          </label>
-          <textarea
-            value={medicalHistory}
-            onChange={(e) => setMedicalHistory(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg shadow-sm text-black focus:outline-none focus:ring focus:ring-blue-300"
-            placeholder="Enter patient's medical history"
-            required
-          ></textarea>
-        </div>
+        
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">Address</label>
           <textarea

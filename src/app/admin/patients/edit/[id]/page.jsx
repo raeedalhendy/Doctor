@@ -3,16 +3,17 @@
     import React, { useEffect, useState } from "react";
     import { useParams, useRouter } from "next/navigation";
     import axios from "axios";
+    import { cardio } from "ldrs";
 
+    cardio.register();
     const EditPatient = () => {
         const { id } = useParams()
-    const [name, setName] = useState("");
     const [namear, setNameAr] = useState("");
     const [phone, setPhone] = useState("");
     const [datae_of_birth, setDataeOfBirth] = useState("");
-    const [medical_history, setMedicalHistory] = useState("");
     const [adress, setAdress] = useState("");
     const [loading, setLoading] = useState(true);
+    
 
     const router = useRouter();
 
@@ -28,11 +29,9 @@
         .then((result) => {
             const patientsData = result.data[0];
             console.log(result.data[0])
-            setName(patientsData.name);
             setNameAr(patientsData.namear);
             setPhone(patientsData.phone);
             setDataeOfBirth(patientsData.datae_of_birth);
-            setMedicalHistory(patientsData.medical_history);
             setAdress(patientsData.adress);
             setLoading(false);
         })
@@ -47,12 +46,10 @@
 
         const token = localStorage.getItem("token");
         const formData = new FormData();
-        formData.append('name', name);
         formData.append('namear', namear);
         formData.append('phone', phone);
         formData.append('datae_of_birth', datae_of_birth);
         formData.append('adress', adress);
-        formData.append('medical_history', medical_history);
 
         formData.append('_method', "put");
         
@@ -80,9 +77,14 @@
 
     if (loading) {
         return (
-        <div className="flex justify-center items-center h-screen">
-            <p>Loading...</p>
-        </div>
+            <div className="flex pt-40  items-center justify-center">
+            <l-cardio
+                size="150"
+                stroke="10"
+                speed="2"
+                color="rgb(29, 78, 216)"
+            ></l-cardio>
+            </div>
         );
     }
 
@@ -96,18 +98,7 @@
             Edit Patient
             </h2>
 
-            <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Name</label>
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full text-black px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
-                placeholder="Enter patient name"
-                required
-            />
-            </div>
-
+           
             <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Name (Arabic)</label>
             <input
@@ -137,22 +128,12 @@
             <input
                 type="date"
                 value={datae_of_birth}
-                onChange={(e) => setDateOfBirth(e.target.value)}
+                onChange={(e) => setDataeOfBirth(e.target.value)}
                 className="w-full text-black px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
                 required
             />
             </div>
 
-            <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Medical History</label>
-            <textarea
-                value={medical_history}
-                onChange={(e) => setMedicalHistory(e.target.value)}
-                className="w-full text-black px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
-                placeholder="Enter medical history"
-                required
-            ></textarea>
-            </div>
 
             <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Address</label>

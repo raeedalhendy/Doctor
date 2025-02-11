@@ -5,9 +5,7 @@ import { useState } from "react";
 
 const CreateTreatment = () => {
     const router = useRouter();
-    const [treatment_name, setTreatmentName] = useState("");
     const [treatment_name_ar, setTreatmentNameAr] = useState("");
-    const [description, setDescription] = useState("");
     const [description_ar, setDescriptionAr] = useState("");
     const [cost, setCost] = useState("");
     const [loading, setLoading] = useState(false);
@@ -17,9 +15,7 @@ const CreateTreatment = () => {
         setLoading(true);
         const token = localStorage.getItem("token");
         const formData = new FormData();
-        formData.append("treatment_name", treatment_name);
         formData.append("treatment_name_ar", treatment_name_ar);
-        formData.append("description", description);
         formData.append("description_ar", description_ar);
         formData.append("cost", cost);
 
@@ -42,24 +38,14 @@ const CreateTreatment = () => {
     };
 
     return (
-        <div className="max-w-xl mx-auto mt-3 p-3 bg-gradient-to-br from-blue-100 to-blue-500 rounded-lg shadow-md">
+        <div className="max-w-xl mx-auto mt-3 p-3 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
                 Create New Treatment
             </h2>
             {loading && <p className="text-center text-blue-600 font-bold">Loading...</p>}
             <form onSubmit={handleSubmit} className="space-y-4 text-black">
                 
-                <div>
-                    <label className="block font-medium mb-1">Treatment Name (English)</label>
-                    <input
-                        type="text"
-                        value={treatment_name}
-                        onChange={(e) => setTreatmentName(e.target.value)}
-                        className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter treatment name"
-                        required
-                    />
-                </div>
+                
                 <div>
                     <label className="block font-medium mb-1">Treatment Name (Arabic)</label>
                     <input
@@ -71,16 +57,7 @@ const CreateTreatment = () => {
                         required
                     />
                 </div>
-                <div>
-                    <label className="block font-medium mb-1">Description (English)</label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter treatment description"
-                        required
-                    />
-                </div>
+                
                 <div>
                     <label className="block font-medium mb-1">Description (Arabic)</label>
                     <textarea

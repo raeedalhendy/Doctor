@@ -43,6 +43,8 @@
         .then((result) => {
             console.log(result.data);
             localStorage.setItem("token", result.data.token);
+            localStorage.setItem("doctor", result.data.doctor);
+
             setTimeout(() => {
             setLoading(false); // إيقاف التحميل
             router.replace("/admin");

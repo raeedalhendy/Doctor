@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "Treatment",
+    title: "العلاجات",
     description: "Treatment next app",
   };
   
